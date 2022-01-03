@@ -2,10 +2,15 @@ FROM golang:alpine as builder
 
 WORKDIR /go/src/
 
-COPY  . .
+COPY  hello.go .
+
+RUN go build hello.go
 
 FROM scratch
 
-copy --from=builder /go/src/hello /go/src/hello
+COPY --from=builder /go/src/hello /go/src/hello
 
-CMD [ "/go/src/hello" ]
+CMD ["/go/src/hello"]
+
+
+
